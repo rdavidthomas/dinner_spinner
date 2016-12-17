@@ -1,1 +1,3 @@
 # dinner_spinner
+
+A simple program that randomly selects what to make for dinner.  Will store the avalible meals in a human readable file. 
