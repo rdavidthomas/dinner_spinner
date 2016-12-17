@@ -62,6 +62,10 @@ typedef struct
     void (*header_func)(void);
 } dtgc_console_settings_t;
         
+typedef int (*console_cmd_fptr_t)(void*, dtgc_console_parsed_t);
+typedef int (*console_cmd_noparam_fptr_t)(void*);
+typedef void (*console_cmd_voidall_fptr_t)(void);
+
 
 /**
  *  Add a command to the system.  
@@ -74,6 +78,8 @@ typedef struct
 int register_command( char const* ascii_cmd, char const* description, int (*cmd_func)(void*, dtgc_console_parsed_t));
 int register_command_noparam( char const* ascii_cmd, char const* description, int (*cmd_func)(void*));
 int register_command_voidall( char const* ascii_cmd, char const* description, void (*cmd_func)());
+
+
 
 int display_menu( void* ptr );
 
