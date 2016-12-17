@@ -15,8 +15,8 @@
 	#define PERR(x,...) dtgc_PERR(dtgc_ERROR, x, ##__VA_ARGS)
 	#define PLOG(x,...) dtgc_PERR(dtgc_INFO, x, ##__VA_ARGS)
 #else
-	#define PERR(x,...) printf( "[ERROR] " x, ##__VA_ARGS)
-	#define PLOG(x,...) printf( "[LOG]   " x, ##__VA_ARGS)
+	#define PERR(x,...) printf( "[ERROR] " x, ##__VA_ARGS__)
+	#define PLOG(x,...) printf( "[LOG]   " x, ##__VA_ARGS__)
 #endif
 
 static dtgc_console_cmds_t commands[DTGC_MAX_CMDS];
