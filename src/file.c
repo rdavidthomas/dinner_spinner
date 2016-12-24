@@ -64,8 +64,8 @@ meal_list_t load_meal_list(char* fname) {
         goto errexit;
     }
     
-    rawdata = calloc(data_size,1);
-    if(rawdata == NULL){
+    list = calloc(data_size,1);
+    if(list == NULL){
         goto errexit;
     }
     
@@ -110,7 +110,7 @@ int append_meal(struct meal_s* meal, char* fname) {
         PDBG("File size %d", info.st_size);
     }
     
-    fp = fopen(fname, "w+b");
+    fp = fopen(fname, "r+b");
     if(fp == NULL)
         { goto errexit; }
     

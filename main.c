@@ -31,6 +31,7 @@
 struct appState {
     int exit;
     spin_t spin_handle;
+    meal_list_t meals;
 };
 
 
@@ -129,7 +130,7 @@ static inline void pheader() {
 
 static int 
 console_command_place_holder(void* statemem, dtgc_console_parsed_t param) {
-    printf("\nSomeday I will be implemented and do something... but not yet.\n");
+    printf("Function not implemented... yet.\n");
 }
 
 static int 
@@ -142,7 +143,7 @@ cmd_spin(void* statemem, dtgc_console_parsed_t param) {
 
 
 static int 
-cmd_add(void* statemem, dtgc_console_parsed_t param) {
+cmd_add(struct appState* statemem, dtgc_console_parsed_t param) {
    struct meal_s m;
    if( param.argc != 2) return -1;
    
@@ -151,6 +152,12 @@ cmd_add(void* statemem, dtgc_console_parsed_t param) {
        printf("Failed to append file\n");
    }
    return 0;
+}
+
+static int
+cmd_load(struct appState* statemem, dtgc_console_parsed_t param) {
+    if( param.argc != 2) return -1;
+    statemem->meals = load_meal_list(param.argv[1]);
 }
 
 
@@ -163,9 +170,9 @@ static int appExit(struct appState* statemem) {
 static int init_console() {
     //load menu commands
     int retval = 0;
-    retval |= register_command("add", "add <name> - add a meal", cmd_add);
+    retval |= register_command("add", "add <name> - add a meal", (console_cmd_fptr_t)cmd_add);
     retval |= register_command("delete", "delete <name> - remove a meal", console_command_place_holder);
-    retval |= register_command("load", "load <file name> - load meals from a file", console_command_place_holder);
+    retval |= register_command("load", "load <file name> - load meals from a file", (console_cmd_fptr_t)cmd_load);
     retval |= register_command("spin", "spin - select a meal for dinner", cmd_spin);
     retval |= register_command_noparam("help", "help - print this menu", display_menu);
     retval |= register_command_noparam("?", "\0", display_menu);
